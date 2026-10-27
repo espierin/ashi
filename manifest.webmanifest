@@ -1,0 +1,15 @@
+{
+  "id": "/ashi/",
+  "name": "ASHI Teleprompter",
+  "short_name": "ASHI",
+  "lang": "nl",
+  "start_url": "/ashi/",
+  "scope": "/ashi/",
+  "display": "standalone",
+  "background_color": "#101820",
+  "theme_color": "#101820",
+  "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}
+  ]
+}
