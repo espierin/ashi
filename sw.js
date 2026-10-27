@@ -11,6 +11,10 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
   if (event.request.method !== 'GET' || !url.href.startsWith(BASE)) return;
+  if (event.request.cache === 'no-store') {
+    event.respondWith(fetch(event.request));
+    return;
+  }
   if (event.request.mode === 'navigate') {
     event.respondWith(fetch(event.request).then(response => {
       if (!response.ok) throw new Error('Page unavailable');
