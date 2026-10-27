@@ -1,5 +1,5 @@
 'use strict';
-const CACHE = 'ashi-offline-v6';
+const CACHE = 'ashi-offline-v7';
 const BASE = new URL('./', self.location.href).href;
 const FILES = ['./', './index.html', './manifest.webmanifest', './apple-touch-icon.png', './icon-192.png', './icon-512.png'];
 self.addEventListener('install', event => {
