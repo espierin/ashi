@@ -1,5 +1,5 @@
 'use strict';
-const CACHE = 'ashi-offline-v3';
+const CACHE = 'ashi-offline-v4';
 const BASE = new URL('./', self.location.href).href;
 const FILES = ['./', './index.html', './manifest.webmanifest', './apple-touch-icon.png', './icon-192.png', './icon-512.png'];
 self.addEventListener('install', event => {
@@ -23,4 +23,5 @@ self.addEventListener('fetch', event => {
     event.respondWith(caches.open(CACHE).then(async cache => (await cache.match(event.request)) || fetch(event.request)));
   }
 });
+
 
