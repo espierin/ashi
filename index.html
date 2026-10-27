@@ -12,7 +12,7 @@ const DURATION=25*60*1000;
 const reader=document.querySelector('#reader'),notes=document.querySelector('#notes'),header=document.querySelector('header'),play=document.querySelector('#play'),status=document.querySelector('#status');
 let running=false,started=false,position=0,start=0,finish=1,last=null,manual=false,touching=false,resumeAt=0,wake=null,size=27,expectedScroll=null;
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
-function geometry(preserve=true){const fraction=position;const line=parseFloat(getComputedStyle(notes).lineHeight);const guide=Math.max(header.getBoundingClientRect().bottom+line+8,reader.clientHeight/3);document.documentElement.style.setProperty('--reading-line',line+'px');document.documentElement.style.setProperty('--guide',guide+'px');const speech=notes.querySelectorAll('p');start=speech[0].offsetTop-(guide-line);const end=speech[speech.length-1];finish=end.offsetTop+end.offsetHeight-(guide+line);position=preserve?fraction:0;if(started)writeScroll(start+position*(finish-start));update();}
+function geometry(preserve=true){const fraction=position;const line=parseFloat(getComputedStyle(notes).lineHeight);const guide=Math.max(header.getBoundingClientRect().bottom+line+8,reader.clientHeight/3+2*line);document.documentElement.style.setProperty('--reading-line',line+'px');document.documentElement.style.setProperty('--guide',guide+'px');const speech=notes.querySelectorAll('p');start=speech[0].offsetTop-(guide-line);const end=speech[speech.length-1];finish=end.offsetTop+end.offsetHeight-(guide+line);position=preserve?fraction:0;if(started)writeScroll(start+position*(finish-start));update();}
 function writeScroll(y){reader.scrollTop=y;expectedScroll=reader.scrollTop;}
 function update(){const seconds=Math.max(0,Math.ceil((1-position)*DURATION/1000));document.querySelector('#time').textContent=String(Math.floor(seconds/60)).padStart(2,'0')+':'+String(seconds%60).padStart(2,'0');document.querySelector('#progress').style.width=(position*100)+'%';let slide=1;for(const section of notes.children){if(section.offsetTop<=reader.scrollTop+header.offsetHeight+55)slide=section.dataset.slide;}status.textContent=position>=1?'Einde · 25-minutenroute voltooid':(manual&&running?'Na scrollen automatisch verder':running?'Loopt · scroll om je plek te wijzigen':started?'Gepauzeerd':'Klaar om te starten')+' · Dia '+slide+(wakeMessage?' · '+wakeMessage:'');play.textContent=running?'Pauze':position>=1?'Opnieuw':started?'Verder':'Start';}
 let wakePending=false,wakeMessage='';
@@ -90,5 +90,6 @@ if('serviceWorker' in navigator){
  .catch(()=>offlineState('Offline opslaan mislukt. Open opnieuw met internet.'));
 }else{offlineState('Offlinegebruik niet beschikbaar in deze browser. Open in Safari.');}
 </script></body></html>
+
 
 
